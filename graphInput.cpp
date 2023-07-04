@@ -22,7 +22,7 @@ int main()
 
    for (int i = 0; i < nodes; i++) {
         cout << i << " -> ";
-        for (int& x : adjList[i]) {
+        for (int x : adjList[i]) {
             cout << x << " ";
         }
         cout << endl;
