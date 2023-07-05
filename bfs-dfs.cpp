@@ -4,10 +4,30 @@ using namespace std;
 
 void dfsTraversal(int node, vector<int> adj[], int vis[], vector<int> &dfsList)
 {
+    /*
+    Description: 
+        This function performs a depth-first search (DFS) traversal 
+        of the graph starting from the given node.
+
+    Parameters:
+        1. node : The starting node to start the traversal 
+        2. adj : The adjacency list of the graph
+        3. vis : a list to keep track of which nodes have been visited
+        4. A lis to store the nodes in the order they were visited
+
+    Returns:
+        None
+    */
+
+    //mark the current node as visited
     vis[node] = 1;
+
+    //add the current node to the list of visited nodes
     dfsList.push_back(node);
 
-    // traverse all the neighbours of the node
+    // traverse all the neighbours of the node and recursively
+    // the dfsTraversal function on all the neighbours of the 
+    // current node that have not been visited yet
     for (auto it : adj[node])
     {
         if (!vis[it])
@@ -19,26 +39,61 @@ void dfsTraversal(int node, vector<int> adj[], int vis[], vector<int> &dfsList)
 
 vector<int> dfsGraph(int nodes, vector<int> adj[], int start)
 {
-    // visited array
-    int visitedNodes[nodes + 1] = {0};
-    vector<int> dfsList;
+    /*
+    Description:
+        This performs a depth-first search (DFS) traversal of
+        the graph and returns a list of the nodes in the order
+        they were visited
+
+    Parameters:
+        1. nodes : The number of nodes in the graph
+        2. adj : The adjacency list of the graph
+        3. start : the to start the traversal from.
+
+    Returns: 
+        A list of the nodes in the order they were visited
+    */
+
+    // visited array intially to 0s
+    int visitedNodes[nodes + 1] = {0};                    
+    
+    vector<int> dfsList; // list to store the nodes in the order they are traversed
+    //call the dfsTraversal function on the start node
     dfsTraversal(start, adj, visitedNodes, dfsList);
+
+    //return the list of traversed list of nodes
     return dfsList;
 
 }
 
 vector<int> bfsTraversal(int nodes, vector<int> adj[], int start)
 {
-    // initial configuration for the traversal
-    int visitedNodes[nodes + 1] = {0}; // since the initial node is 0, [nodes + 1] if initial node 1
-    visitedNodes[start] = 1;           // marking the initial node a visited
+
+    /*
+    Description:
+        This function performs a breadth-first search (BFS) traversal 
+        of the graph and returns a list of the nodes in the order they were visited.
+
+    Parameters:
+        1. nodes : The number of nodes in the graph
+        2. adj : The adjacency list of the graph
+        3. start : the to start the traversal from.
+
+    Returns: 
+        A list of the nodes in the order they were visited
+    */
+
+    // initialize a visited array to all 0s
+    int visitedNodes[nodes + 1] = {0}; 
+     // marking the initial node a visited and push into queue
+    visitedNodes[start] = 1;          
     queue<int> q;
     q.push(start); // pushing the initial node into the queue
 
     // a vector to store the traversed nodes
     vector<int> bfsList;
 
-    // check if the queue is empty
+    // while the queue is not empty
     while (!q.empty())
     {
         int node = q.front();
@@ -84,6 +139,7 @@ void printTraversalList(vector<int> &a)
 int main()
 {
     int nodes, edges, startNode, choice;
+    
     cout << "Enter the number of nodes in the graph: ";
     cin >> nodes;
     cout << "Enter the number of edges in the graph: ";
