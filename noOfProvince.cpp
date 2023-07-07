@@ -8,16 +8,40 @@ using namespace std;
 
 class Solution {
   private:
-    void dfs(int node, int vis[], vector<int> adjList[])
+    // void dfs(int node, int vis[], vector<int> adjList[])
+    // {
+    //     vis[node] = 1;
+    //     for (auto it : adjList[node])
+    //     {
+    //         if (!vis[it]) 
+    //         {
+    //             dfs(it, vis, adjList);
+    //         }
+    //     }
+    // }
+    void bfs(int start, int vis[], vector<int> adjList[])
     {
-        vis[node] = 1;
-        for (auto it : adjList[node])
+        //marked visited for the nodes
+        vis[start] = 1;
+        
+        queue<int> q; 
+        q.push(start);
+        
+        while(!q.empty())
         {
-            if (!vis[it]) 
+            int node = q.front();
+            q.pop();
+            
+            for(auto it : adjList[node])
             {
-                dfs(it, vis, adjList);
+                if (!vis[it])
+                {
+                    vis[it] = 1;
+                    q.push(it);
+                }
             }
         }
+        
     }
   public:
     int numProvinces(vector<vector<int>> adj, int V) {
@@ -44,7 +68,7 @@ class Solution {
             if (!vis[i])
             {
                 count++;
-                dfs(i, vis, adjList);
+                bfs(i, vis, adjList);
             }
         }
         return count;
