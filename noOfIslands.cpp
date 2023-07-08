@@ -81,6 +81,8 @@ class Solution {
         int totalCol = grid[0].size();
         
         vector< vector<int>> vis(totalRow, vector<int>(totalCol, 0));
+        vector< pair<int,int>> moves = {{-1,-1}, {-1,0}, {-1,1}, {0,-1}, {0,1}, {1, -1}, {1,0}, {1,1}};
+
         
         
         int count = 0;
@@ -92,7 +94,8 @@ class Solution {
                 if (!vis[row][col] & grid[row][col]=='1')
                 {
                     count++;
-                    bfs(row, col, vis, grid);
+                    // bfs(row, col, vis, grid);
+                    dfs(row, col, vis, grid, moves);
                 }
             }
         }
