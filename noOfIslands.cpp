@@ -38,6 +38,29 @@ class Solution {
             }
         }        
     }
+
+    void dfs(int row, int col, vector<vector<int>>&vis, 
+    vector<vector<char>>&grid, vector<pair <int,int>>&moves)
+    {
+        int m = grid.size();
+        int n = grid[0].size();
+        
+        vis[row][col] = 1;
+        
+        //check if the neigbours are visited or not
+        for ( auto it : moves)
+        {
+            int nrow = row + it.first;
+            int ncol = col + it.second;
+            
+            if (isValid(nrow, ncol, vis, grid, m, n))
+            {
+                dfs(nrow, ncol, vis, grid, moves);
+            }
+        }
+        
+        
+    }
   
     bool isValid(int row, int col, vector<vector<int>>&vis, vector<vector<char>>&grid, int m, int n)
     {
